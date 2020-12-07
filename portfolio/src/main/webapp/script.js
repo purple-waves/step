@@ -26,3 +26,19 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+
+/**
+ * Adds a random quote to the page.
+ */
+function addRandomQuote() {
+    const quotes =
+        ['My "people skills" are "rusty" - Castiel, Supernatural', "What would Hermione do? - Charlie Bradbury, Supernatural", "It matters not what someone is born, but what they grow to be. - Albus Dumbledore",
+    "And if eating cake is wrong, I don't want to be right. - Lorelai Gilmore, Gilmore Girls"];
+
+    //Pick random quote
+    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+
+    //Add it to the page.
+    const quoteContainer = document.getElementById('quote-container');
+    quoteContainer.innerText = quote;
+}
