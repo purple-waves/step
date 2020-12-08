@@ -5,7 +5,19 @@
   width: 800px;
 }
 
+header {
+  background: url("images/sunset_header.jpg");
+  height: 185px;
+  width: inherit;
+}
+
+header h1 {
+  padding: 20px;
+  text-align: left;
+}
+
 h1 {
+  color: #0E0C0E;
   font-family: "Montserrat", sans-serif;
   text-align: center;
 }
@@ -41,7 +53,7 @@ h2 {
   width: inherit;
 }
 #nav ul {
-  background-color: lightgray;
+  background-color: #A87E53;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -62,8 +74,11 @@ h2 {
   text-decoration: none;
 }
 
-#nav .active,
+#nav .active {
+  background-color: #896643;
+}
+
 #nav a:hover {
-  background-color: gray;
+  background-color: #bc9976;
 }
 
