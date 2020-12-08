@@ -36,3 +36,34 @@ h2 {
 #quote-container {
     margin-top: 20px;
 }
+
+#nav {
+  width: inherit;
+}
+#nav ul {
+  background-color: lightgray;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  top: 0;
+  width: inherit;
+}
+
+#nav li {
+  float: left;
+  text-align: center;
+}
+
+#nav a {
+  color: inherit;
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+}
+
+#nav .active,
+#nav a:hover {
+  background-color: gray;
+}
+
