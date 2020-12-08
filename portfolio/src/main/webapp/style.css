@@ -38,7 +38,8 @@ h2 {
 }
 
 .image-thumbnails img:hover {
-  max-width: 360px;
+  border-color: #39312d;
+  border-style: solid;
 }
 
 #quote-container {
@@ -59,6 +60,10 @@ h2 {
   color: #0E0C0B;
   float: left;
   margin: 0 0 5px 5px;
+}
+
+#quote-refresh-button:focus {
+  outline-color: #A87E53;
 }
 
 #quote-text {
