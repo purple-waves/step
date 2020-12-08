@@ -5,7 +5,7 @@
     <title>Rachel's Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Poiret+One&family=Roboto&display=swap" rel="stylesheet">
     <script src="script.js"></script>
   </head>
   <body>
@@ -26,11 +26,13 @@
         <img src="images/bella.jpg"/>
       </div>
 
-      <p>Click here to get a random quote:</p>
-      <button onclick="addRandomQuote()">New quote</button>
-      <div id="quote-container"></div>
+      <br>
+      <div id="quote-container">
+        <div id="quote-text">"In ancient times cats were worshipped as gods; they have not forgotten this."</div>
+        <div id="quote-author">- Terry Pratchett</div>
+        <button id="quote-refresh-button" onclick="addRandomQuote()">New random quote</button>
+      </div>
 
-      <p>Click <a href="gallery.html">here</a> to see some of my photos!</p>
     </div>
   </body>
 </html>

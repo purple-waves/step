@@ -41,12 +41,31 @@ h2 {
   max-width: 360px;
 }
 
-#greeting-container {
+#quote-container {
+  background-color: #39312d;
+  color: #EFE2C6;
   margin-top: 20px;
+  overflow: hidden;
 }
 
-#quote-container {
-    margin-top: 20px;
+#quote-author {
+  padding: 0 50px 0 0;
+  text-align: right;
+}
+
+#quote-refresh-button {
+  background-color: #EFE2C6;
+  border: none;
+  color: #0E0C0B;
+  float: left;
+  margin: 0 0 5px 5px;
+}
+
+#quote-text {
+  font-family: 'Poiret One', cursive;
+  font-size: 30px;
+  padding: 20px;
+  text-align: center;
 }
 
 #nav {

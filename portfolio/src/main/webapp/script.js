@@ -18,13 +18,20 @@
  */
 function addRandomQuote() {
     const quotes =
-        ['My "people skills" are "rusty" - Castiel, Supernatural', "What would Hermione do? - Charlie Bradbury, Supernatural", "It matters not what someone is born, but what they grow to be. - Albus Dumbledore",
-    "And if eating cake is wrong, I don't want to be right. - Lorelai Gilmore, Gilmore Girls"];
-
-    //Pick random quote
-    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+        ['My "people skills" are "rusty"', "What would Hermione do?", "It matters not what someone is born, but what they grow to be.",
+    "And if eating cake is wrong, I don't want to be right."];
+    const authors = 
+        ["Castiel, Supernatural", "Charlie Bradbury, Supernatural", "Albus Dumbledore", "Lorelai Gilmore, Gilmore Girls"];
+    
+        //Pick random quote
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    const quote = quotes[randomIndex];
+    const author = authors[randomIndex];
 
     //Add it to the page.
-    const quoteContainer = document.getElementById('quote-container');
-    quoteContainer.innerText = quote;
+    const quoteText = document.getElementById('quote-text');
+    quoteText.innerText = '"' + quote + '"';
+
+    const quoteAuthor = document.getElementById('quote-author');
+    quoteAuthor.innerText = "- " + author;
 }
