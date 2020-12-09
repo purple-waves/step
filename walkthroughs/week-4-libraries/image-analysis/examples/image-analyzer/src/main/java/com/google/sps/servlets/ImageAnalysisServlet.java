@@ -50,7 +50,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/image-analysis")
 public class ImageAnalysisServlet extends HttpServlet {
 
-  @Override
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7916875537219700774L;
+
+    @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     PrintWriter out = response.getWriter();

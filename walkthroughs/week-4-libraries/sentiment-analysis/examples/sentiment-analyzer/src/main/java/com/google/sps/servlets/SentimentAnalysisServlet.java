@@ -26,7 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/sentiment")
 public class SentimentAnalysisServlet extends HttpServlet {
 
-  @Override
+    private static final long serialVersionUID = 8804366074063388569L;
+
+    @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String message = request.getParameter("message");
 

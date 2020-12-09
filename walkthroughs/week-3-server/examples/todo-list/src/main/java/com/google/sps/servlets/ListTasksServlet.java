@@ -34,7 +34,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/list-tasks")
 public class ListTasksServlet extends HttpServlet {
 
-  @Override
+    private static final long serialVersionUID = 1L;
+
+    @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
 
