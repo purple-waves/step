@@ -15,6 +15,8 @@
 package com.google.sps.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import com.google.gson.Gson;
@@ -30,10 +32,15 @@ public class DataServlet extends HttpServlet {
 
     private static final long serialVersionUID = 5770012060147035495L;
 
+    private ArrayList<String> messages = new ArrayList<String>(
+      Arrays.asList("message 1","message 2","message 3"));
+
     @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("Hello Rachel!");
+    Gson gson = new Gson();
+    String jsonMessages = gson.toJson(messages);
+    response.setContentType("application/json;");
+    response.getWriter().println(jsonMessages);
   }
 
 
@@ -56,9 +63,11 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(json);
   }
 */
-  private String convertCommentToJson(Comment comment) {
-    Gson gson = new Gson();
-    String json = gson.toJson(comment);
-    return json;
-  }
+
+// not needed yet
+//   private String convertCommentToJson(Comment comment) {
+//     Gson gson = new Gson();
+//     String json = gson.toJson(comment);
+//     return json;
+//   }
 }
