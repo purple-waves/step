@@ -4,25 +4,33 @@
     <meta charset="UTF-8">
     <title>Rachel's Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Poiret+One&family=Roboto&display=swap" rel="stylesheet">
     <script src="script.js"></script>
   </head>
   <body>
     <div id="content">
-      <h1>Rachel's Portfolio</h1>
-      <p>Hi, I'm a STEP intern at Google. This is my portfolio.</p>
-      <div>
-        <p>Here are my cats:</p>
-        <img src="images/peppa.jpg"/>
-        <img src="images/bella.jpg"/>
+      <header>
+        <h1>Rachel's Portfolio</h1>
+      </header>
+      <div id="nav">
+        <ul>
+          <li><a class="active" href="index.html">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </div>
+      <h2>About me</h2>
+      <p>Hi, I'm a STEP intern at Google, and this is my portfolio</p>
+      <p>I am currently studying Software Engineering at ANU, and live just outside of Canberra.
+      My hobbies include reading anything and everything Fantasy or Sci-Fi related and taking photos of the sunset.</p>
+
+      <br>
+      <div id="quote-container">
+        <div id="quote-text">"In ancient times cats were worshipped as gods; they have not forgotten this."</div>
+        <div id="quote-author">- Terry Pratchett</div>
+        <button id="quote-refresh-button" onclick="addRandomQuote()">New random quote</button>
       </div>
 
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
-
-      <p>Click here to get a random quote:</p>
-      <button onclick="addRandomQuote()">New quote</button>
-      <div id="quote-container"></div>
     </div>
   </body>
 </html>

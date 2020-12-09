@@ -1,9 +1,108 @@
 #content {
+  font-family: 'Roboto', sans-serif;
   margin-left: auto;
   margin-right: auto;
-  width: 650px;
+  width: 800px;
 }
 
-#greeting-container {
-  margin-top: 20px;
+header {
+  background: url("images/sunset_header.jpg");
+  height: 185px;
+  width: inherit;
 }
+
+header h1 {
+  padding: 20px;
+  text-align: left;
+}
+
+h1 {
+  color: #0E0C0E;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+}
+
+h2 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.image-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.image-thumbnails img {
+  margin: 10px;
+  max-width: 350px;
+}
+
+.image-thumbnails img:hover {
+  border-color: #39312d;
+  border-style: solid;
+}
+
+#quote-container {
+  background-color: #39312d;
+  color: #EFE2C6;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+#quote-author {
+  padding: 0 50px 0 0;
+  text-align: right;
+}
+
+#quote-refresh-button {
+  background-color: #EFE2C6;
+  border: none;
+  color: #0E0C0B;
+  float: left;
+  margin: 0 0 5px 5px;
+}
+
+#quote-refresh-button:focus {
+  outline-color: #A87E53;
+}
+
+#quote-text {
+  font-family: 'Poiret One', cursive;
+  font-size: 30px;
+  padding: 20px;
+  text-align: center;
+}
+
+#nav {
+  width: inherit;
+}
+#nav ul {
+  background-color: #A87E53;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  top: 0;
+  width: inherit;
+}
+
+#nav li {
+  float: left;
+  text-align: center;
+}
+
+#nav a {
+  color: inherit;
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+}
+
+#nav .active {
+  background-color: #896643;
+}
+
+#nav a:hover {
+  background-color: #bc9976;
+}
+
