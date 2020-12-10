@@ -44,16 +44,6 @@ function getGreeting() {
   });
 }
 
-// function getMessages() {
-//   fetch('/data').then(response => response.json()).then((messages) => {
-//     messagesContainer = document.getElementById("messages-container");
-//     messagesContainer.innerHTML = '';
-//     for (i = 0; i < messages.length; i++) {
-//       messagesContainer.appendChild(createListElement(messages[i]));
-//     }
-//   });
-// }
-
 function getComments() {
     fetch('/data').then(response => response.json()).then((comments) => {
     commentsContainer = document.getElementById("comments-container");
