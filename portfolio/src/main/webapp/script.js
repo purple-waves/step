@@ -44,16 +44,39 @@ function getGreeting() {
   });
 }
 
-function getMessages() {
-  fetch('/data').then(response => response.json()).then((messages) => {
-    messagesContainer = document.getElementById("messages-container");
-    messagesContainer.innerHTML = '';
-    for (i = 0; i < messages.length; i++) {
-      messagesContainer.appendChild(createListElement(messages[i]));
+// function getMessages() {
+//   fetch('/data').then(response => response.json()).then((messages) => {
+//     messagesContainer = document.getElementById("messages-container");
+//     messagesContainer.innerHTML = '';
+//     for (i = 0; i < messages.length; i++) {
+//       messagesContainer.appendChild(createListElement(messages[i]));
+//     }
+//   });
+// }
+
+function getComments() {
+    fetch('/data').then(response => response.json()).then((comments) => {
+    commentsContainer = document.getElementById("comments-container");
+    commentsContainer.innerHTML = '';
+    for (i = 0; i < comments.length; i++) {
+      commentsContainer.appendChild(createCommentElement(comments[i],"default author"));
     }
   });
 }
 
+function createCommentElement(text,author) {
+  const textElement = document.createElement("p");
+  textElement.innerText = text;
+  const authorElement = document.createElement('div');
+  authorElement.innerText = author;
+
+  const commentElement = document.createElement('div');
+  commentElement.setAttribute("class","comment");
+  commentElement.appendChild(textElement);
+  commentElement.appendChild(authorElement);
+
+  return commentElement;
+}
 /** Creates an <li> element containing text. */
 function createListElement(text) {
   const liElement = document.createElement('li');

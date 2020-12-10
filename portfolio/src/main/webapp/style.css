@@ -1,3 +1,8 @@
+.comment {
+    border-color: black;
+    border-style: solid;
+}
+
 #content {
   font-family: 'Roboto', sans-serif;
   margin-left: auto;
