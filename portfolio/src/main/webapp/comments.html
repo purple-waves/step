@@ -25,9 +25,14 @@
       <div id="comments-section">
           <h2>Comments:</h2>
           <div id="comments-container"></div>
-          <p>Submit new comment below:</p>
-          <form action="/data" method="POST">
+          <br>
+          <h2>Add comment below:</h2>
+          <form action="/data" method="POST" id="new-comment-form" autocomplete="off">
             <p>Comment contents:</p>
+            <label for="comment-author">Your name: </label>
+            <input type="text" name="comment-author">
+            <br>
+            <label for="comment-text">Write your comment here:</label>
             <input type="text" name="comment-text">
             <br>
             <input type="submit">

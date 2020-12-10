@@ -1,6 +1,12 @@
 .comment {
-    border-color: black;
-    border-style: solid;
+    border: 3px solid #A87E53;
+    border-radius: 10px;
+    margin: 0 0 5px 0;
+    padding: 5px;
+}
+
+#new-comment-form {
+    background-color: #EFE2C6;
 }
 
 #content {

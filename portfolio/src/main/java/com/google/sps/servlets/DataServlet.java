@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +32,7 @@ public class DataServlet extends HttpServlet {
     private static final long serialVersionUID = 5770012060147035495L;
 
 
-    private ArrayList<String> comments = new ArrayList<String>();
+    private ArrayList<Comment> comments = new ArrayList<Comment>();
 
     @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -42,12 +44,14 @@ public class DataServlet extends HttpServlet {
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String commentText = request.getParameter("comment-text");
+    String commentAuthor = request.getParameter("comment-author");
 
     //do not store comments with no contents
     if (commentText.equals("")) {
       return;
     }
-    comments.add(commentText);
+    Comment comment = new Comment(commentAuthor,commentText);
+    comments.add(comment);
     response.sendRedirect("/comments.html");
   }
 }

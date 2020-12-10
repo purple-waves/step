@@ -59,7 +59,7 @@ function getComments() {
     commentsContainer = document.getElementById("comments-container");
     commentsContainer.innerHTML = '';
     for (i = 0; i < comments.length; i++) {
-      commentsContainer.appendChild(createCommentElement(comments[i],"default author"));
+      commentsContainer.appendChild(createCommentElement(comments[i].text,comments[i].author));
     }
   });
 }
