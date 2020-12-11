@@ -35,7 +35,9 @@ import org.jsoup.safety.Whitelist;
 @WebServlet("/markers")
 public class MarkerServlet extends HttpServlet {
 
-  /** Responds with a JSON array containing marker data. */
+    private static final long serialVersionUID = -4009241705879397608L;
+
+    /** Responds with a JSON array containing marker data. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");

@@ -26,7 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/subtraction-game")
 public final class SubtractionServlet extends HttpServlet {
 
-  private SubtractionGame game = new SubtractionGame();
+    private static final long serialVersionUID = 9125232182893188502L;
+    
+    private SubtractionGame game = new SubtractionGame();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

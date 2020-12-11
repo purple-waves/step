@@ -28,7 +28,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/delete-task")
 public class DeleteTaskServlet extends HttpServlet {
 
-  @Override
+    private static final long serialVersionUID = 3789318406336397163L;
+
+    @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     long id = Long.parseLong(request.getParameter("id"));
 

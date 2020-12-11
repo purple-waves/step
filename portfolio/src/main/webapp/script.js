@@ -17,29 +17,59 @@
  * Adds a random quote to the page.
  */
 function addRandomQuote() {
-    const quotes =
-        ['My "people skills" are "rusty"', "What would Hermione do?", "It matters not what someone is born, but what they grow to be.",
-    "And if eating cake is wrong, I don't want to be right."];
-    const authors = 
-        ["Castiel, Supernatural", "Charlie Bradbury, Supernatural", "Albus Dumbledore", "Lorelai Gilmore, Gilmore Girls"];
-    
-        //Pick random quote
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    const quote = quotes[randomIndex];
-    const author = authors[randomIndex];
+  const quotes =
+    ['My "people skills" are "rusty"', "What would Hermione do?", "It matters not what someone is born, but what they grow to be.",
+      "And if eating cake is wrong, I don't want to be right."];
+  const authors =
+    ["Castiel, Supernatural", "Charlie Bradbury, Supernatural", "Albus Dumbledore", "Lorelai Gilmore, Gilmore Girls"];
 
-    //Add it to the page.
-    const quoteText = document.getElementById('quote-text');
-    quoteText.innerText = '"' + quote + '"';
+  //Pick random quote
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  const quote = quotes[randomIndex];
+  const author = authors[randomIndex];
 
-    const quoteAuthor = document.getElementById('quote-author');
-    quoteAuthor.innerText = "- " + author;
+  //Add it to the page.
+  const quoteText = document.getElementById('quote-text');
+  quoteText.innerText = '"' + quote + '"';
+
+  const quoteAuthor = document.getElementById('quote-author');
+  quoteAuthor.innerText = "- " + author;
 }
 
 function getGreeting() {
-    console.log("Fetching the greeting");
+  console.log("Fetching the greeting");
 
-    fetch('/data').then(response => response.text()).then((greeting) => {
-        document.getElementById('greeting-container').innerText = greeting;
-    });
+  fetch('/data').then(response => response.text()).then((greeting) => {
+    document.getElementById('greeting-container').innerText = greeting;
+  });
+}
+
+function getComments() {
+    fetch('/data').then(response => response.json()).then((comments) => {
+    commentsContainer = document.getElementById("comments-container");
+    commentsContainer.innerHTML = '';
+    for (i = 0; i < comments.length; i++) {
+      commentsContainer.appendChild(createCommentElement(comments[i].text,comments[i].author));
+    }
+  });
+}
+
+function createCommentElement(text,author) {
+  const textElement = document.createElement("p");
+  textElement.innerText = text;
+  const authorElement = document.createElement('div');
+  authorElement.innerText = author;
+
+  const commentElement = document.createElement('div');
+  commentElement.setAttribute("class","comment");
+  commentElement.appendChild(textElement);
+  commentElement.appendChild(authorElement);
+
+  return commentElement;
+}
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
 }

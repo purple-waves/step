@@ -29,7 +29,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/ufo-data")
 public class UfoDataServlet extends HttpServlet {
 
-  private Collection<UfoSighting> ufoSightings;
+    private static final long serialVersionUID = -33346900107314240L;
+    
+    private Collection<UfoSighting> ufoSightings;
 
   @Override
   public void init() {
