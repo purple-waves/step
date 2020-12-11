@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -50,8 +53,16 @@ public class DataServlet extends HttpServlet {
     if (commentText.equals("")) {
       return;
     }
-    Comment comment = new Comment(commentAuthor,commentText);
-    comments.add(comment);
+
+    // Comment comment = new Comment(commentAuthor,commentText);
+    // comments.add(comment);
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("author", commentAuthor);
+    commentEntity.setProperty("text", commentText);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
+
     response.sendRedirect("/comments.html");
   }
 }
