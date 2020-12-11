@@ -50,9 +50,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/image-analysis")
 public class ImageAnalysisServlet extends HttpServlet {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -7916875537219700774L;
 
     @Override
