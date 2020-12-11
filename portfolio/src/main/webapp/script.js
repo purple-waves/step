@@ -36,14 +36,6 @@ function addRandomQuote() {
   quoteAuthor.innerText = "- " + author;
 }
 
-function getGreeting() {
-  console.log("Fetching the greeting");
-
-  fetch('/data').then(response => response.text()).then((greeting) => {
-    document.getElementById('greeting-container').innerText = greeting;
-  });
-}
-
 function getComments() {
     fetch('/data').then(response => response.json()).then((comments) => {
     commentsContainer = document.getElementById("comments-container");
