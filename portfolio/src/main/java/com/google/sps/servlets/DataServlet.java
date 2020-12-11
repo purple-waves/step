@@ -39,9 +39,6 @@ public class DataServlet extends HttpServlet {
 
     private static final long serialVersionUID = 5770012060147035495L;
 
-
-    private ArrayList<Comment> comments = new ArrayList<Comment>();
-
     @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
