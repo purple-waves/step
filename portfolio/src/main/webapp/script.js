@@ -45,14 +45,16 @@ function getComments() {
     requestLimitSelect = document.getElementById("max-comments-fetched");
     requestLimit = requestLimitSelect.options[requestLimitSelect.selectedIndex].text;
 
-    fetchURL = '/data?request-limit=' + requestLimit;
+    languageDropdown = document.getElementById("language-dropdown");
+    selectedLanguage = languageDropdown.value;
+
+    fetchURL = "/data?request-limit=" + requestLimit + "&language=" + selectedLanguage;
     fetch(fetchURL).then(response => response.json()).then((comments) => {
     commentsContainer = document.getElementById("comments-container");
     commentsContainer.innerHTML = '';
     for (i = 0; i < comments.length; i++) {
       commentsContainer.appendChild(createCommentElement(comments[i].text,comments[i].author));
     }
-    console.log("getComments finished")
   });
 }
 
