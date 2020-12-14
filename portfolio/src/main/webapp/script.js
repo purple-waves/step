@@ -36,13 +36,23 @@ function addRandomQuote() {
   quoteAuthor.innerText = "- " + author;
 }
 
+function deleteComments() {
+    const request = new Request('/delete-data', {method: 'POST'});
+
+    fetch(request).then(getComments());
+}
 function getComments() {
-    fetch('/data').then(response => response.json()).then((comments) => {
+    requestLimitSelect = document.getElementById("max-comments-fetched");
+    requestLimit = requestLimitSelect.options[requestLimitSelect.selectedIndex].text;
+
+    fetchURL = '/data?request-limit=' + requestLimit;
+    fetch(fetchURL).then(response => response.json()).then((comments) => {
     commentsContainer = document.getElementById("comments-container");
     commentsContainer.innerHTML = '';
     for (i = 0; i < comments.length; i++) {
       commentsContainer.appendChild(createCommentElement(comments[i].text,comments[i].author));
     }
+    console.log("getComments finished")
   });
 }
 
