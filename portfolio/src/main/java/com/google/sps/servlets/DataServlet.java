@@ -24,6 +24,7 @@ import com.google.sps.data.Comment;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
@@ -37,25 +38,27 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 5770012060147035495L;
+  private static final long serialVersionUID = 5770012060147035495L;
 
-    @Override
+  @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
+
+    int requestLimit = Integer.parseInt(request.getParameter("request-limit"));
+
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
-    
+
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
     List<Comment> comments = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
-        String author = (String) entity.getProperty("author");
-        String text = (String) entity.getProperty("text");
+    for (Entity entity : results.asIterable(FetchOptions.Builder.withLimit(requestLimit))) {
+      String author = (String) entity.getProperty("author");
+      String text = (String) entity.getProperty("text");
 
-        Comment comment = new Comment(author,text);
-        comments.add(comment);
+      Comment comment = new Comment(author, text);
+      comments.add(comment);
     }
-    
+
     Gson gson = new Gson();
     String jsonComments = gson.toJson(comments);
     response.setContentType("application/json;");
@@ -66,7 +69,7 @@ public class DataServlet extends HttpServlet {
     String commentText = request.getParameter("comment-text");
     String commentAuthor = request.getParameter("comment-author");
 
-    //do not store comments with no contents
+    // do not store comments with no contents
     if (commentText.equals("")) {
       return;
     }

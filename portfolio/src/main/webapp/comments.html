@@ -23,20 +23,30 @@
       
       <br>
       <div id="comments-section">
-          <h2>Comments:</h2>
-          <div id="comments-container"></div>
+        <h2>Comments:</h2>
+        <label for="max-comments-fetched">Select the maximum number of comments to display:</label>
+        <select name="max-comments-fetched" id="max-comments-fetched">
+          <option value="5" selected>5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+        <button id="refresh-comments" onClick="getComments()">Refresh comments</button>
+        <div id="comments-container"></div>
+        <br>
+        <h2>Add comment below:</h2>
+        <form action="/data" method="POST" id="new-comment-form" autocomplete="off">
+          <p>Comment contents:</p>
+          <label for="comment-author">Your name: </label>
+          <input type="text" name="comment-author">
           <br>
-          <h2>Add comment below:</h2>
-          <form action="/data" method="POST" id="new-comment-form" autocomplete="off">
-            <p>Comment contents:</p>
-            <label for="comment-author">Your name: </label>
-            <input type="text" name="comment-author">
-            <br>
-            <label for="comment-text">Write your comment here:</label>
-            <input type="text" name="comment-text">
-            <br>
-            <input type="submit">
-          </form>
+          <label for="comment-text">Write your comment here:</label>
+          <input type="text" name="comment-text">
+          <br>
+          <input type="submit">
+        </form>
+
+        <button id="delete-comments-button" onClick="deleteComments()">Delete all comments data</button>
       </div>
 
     </div>
