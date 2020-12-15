@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap');
 
+html, body {
+    height: 100%;
+}
+
 .comment {
     border: 3px solid #A87E53;
     border-radius: 10px;
@@ -13,6 +17,7 @@
 
 #content {
   font-family: "Roboto","Helvetica","Arial",sans-serif;
+  height: 100%;
   margin-left: auto;
   margin-right: auto;
   width: 800px;
@@ -53,6 +58,10 @@ h2 {
 .image-thumbnails img:hover {
   border-color: #39312d;
   border-style: solid;
+}
+
+#map {
+    height: 50%;
 }
 
 #quote-container {
