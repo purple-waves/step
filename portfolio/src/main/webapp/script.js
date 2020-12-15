@@ -78,3 +78,28 @@ function createListElement(text) {
   liElement.innerText = text;
   return liElement;
 }
+
+function loadLanguageDropdown() {
+    dropdown = document.getElementById("language-dropdown");
+    dropdown.innerHTML = '';
+    fetch("/provided-languages").then(response => response.json()).then((languages) => {
+        for (i=0; i < languages.length; i++) {
+            dropdown.appendChild(
+                createOptionElement(languages[i].name,languages[i].code)
+            );
+        }
+    })
+}
+
+function createOptionElement(lang,code) {
+    optionElement = document.createElement("option");
+    optionElement.setAttribute("value",code);
+    optionElement.innerHTML = lang;
+
+    return optionElement;
+}
+
+function loadPage() {
+    getComments();
+    loadLanguageDropdown();
+}
