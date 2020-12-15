@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 /**
  * Adds a random quote to the page.
  */
@@ -37,35 +36,37 @@ function addRandomQuote() {
 }
 
 function deleteComments() {
-    const request = new Request('/delete-data', {method: 'POST'});
+  const request = new Request('/delete-data', { method: 'POST' });
 
-    fetch(request).then(getComments());
+  fetch(request).then(getComments());
 }
 function getComments() {
-    requestLimitSelect = document.getElementById("max-comments-fetched");
-    requestLimit = requestLimitSelect.options[requestLimitSelect.selectedIndex].text;
+  requestLimitSelect = document.getElementById("max-comments-fetched");
+  requestLimit = requestLimitSelect.options[requestLimitSelect.selectedIndex].text;
 
-    languageDropdown = document.getElementById("language-dropdown");
-    selectedLanguage = languageDropdown.value;
+  languageDropdown = document.getElementById("language-dropdown");
+  selectedLanguage = languageDropdown.value;
 
-    fetchURL = "/data?request-limit=" + requestLimit + "&language=" + selectedLanguage;
-    fetch(fetchURL).then(response => response.json()).then((comments) => {
+  fetchURL = "/data?request-limit=" + requestLimit + "&language=" + selectedLanguage;
+  fetch(fetchURL).then(response => response.json()).then((comments) => {
     commentsContainer = document.getElementById("comments-container");
     commentsContainer.innerHTML = '';
     for (i = 0; i < comments.length; i++) {
-      commentsContainer.appendChild(createCommentElement(comments[i].text,comments[i].author));
+      commentsContainer.appendChild(
+        createCommentElement(comments[i].text, comments[i].author,selectedLanguage));
     }
   });
 }
 
-function createCommentElement(text,author) {
+function createCommentElement(text, author,langCode) {
   const textElement = document.createElement("p");
   textElement.innerText = text;
+  textElement.setAttribute("lang",langCode);
   const authorElement = document.createElement('div');
   authorElement.innerText = author;
 
   const commentElement = document.createElement('div');
-  commentElement.setAttribute("class","comment");
+  commentElement.setAttribute("class", "comment");
   commentElement.appendChild(textElement);
   commentElement.appendChild(authorElement);
 

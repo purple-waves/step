@@ -48,7 +48,7 @@ public class DataServlet extends HttpServlet {
 
     int requestLimit = Integer.parseInt(request.getParameter("request-limit"));
     String language = request.getParameter("language");
-    
+
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -58,20 +58,20 @@ public class DataServlet extends HttpServlet {
     for (Entity entity : results.asIterable(FetchOptions.Builder.withLimit(requestLimit))) {
       String author = (String) entity.getProperty("author");
       String text = (String) entity.getProperty("text");
-      
-      if (!language.equals("en")) {
-        Translate translate = 
-            TranslateOptions.newBuilder().setProjectId("internplayground").setQuotaProjectId("internplayground").build().getService();
-        Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage(language));
-        text = translation.getTranslatedText();
-      }
+
+      Translate translate = TranslateOptions.newBuilder().setProjectId("internplayground")
+          .setQuotaProjectId("internplayground").build().getService();
+      Translation translation = translate.translate(text,
+          Translate.TranslateOption.targetLanguage(language));
+      text = translation.getTranslatedText();
       Comment comment = new Comment(author, text);
       comments.add(comment);
     }
 
     Gson gson = new Gson();
     String jsonComments = gson.toJson(comments);
-    response.setContentType("application/json;");
+    response.setContentType("application/json; charset=UTF-8");
+    response.setCharacterEncoding("UTF-8");
     response.getWriter().println(jsonComments);
   }
 
