@@ -28,6 +28,7 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.cloud.translate.Language;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
@@ -49,30 +50,42 @@ public class DataServlet extends HttpServlet {
     int requestLimit = Integer.parseInt(request.getParameter("request-limit"));
     String language = request.getParameter("language");
 
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    Translate translate = TranslateOptions.newBuilder().setProjectId("internplayground")
+        .setQuotaProjectId("internplayground").build().getService();
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
-
-    List<Comment> comments = new ArrayList<>();
-    for (Entity entity : results.asIterable(FetchOptions.Builder.withLimit(requestLimit))) {
-      String author = (String) entity.getProperty("author");
-      String text = (String) entity.getProperty("text");
-
-      Translate translate = TranslateOptions.newBuilder().setProjectId("internplayground")
-          .setQuotaProjectId("internplayground").build().getService();
-      Translation translation = translate.translate(text,
-          Translate.TranslateOption.targetLanguage(language));
-      text = translation.getTranslatedText();
-      Comment comment = new Comment(author, text);
-      comments.add(comment);
+    List<Language> languages = translate.listSupportedLanguages();
+    
+    Boolean langParamValid = false;
+    for (Language lang : languages) {
+      if (lang.getCode().equals(language)) {
+        langParamValid = true;
+        break;
+      }
     }
+    if (langParamValid) {
+      Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
-    Gson gson = new Gson();
-    String jsonComments = gson.toJson(comments);
-    response.setContentType("application/json; charset=UTF-8");
-    response.setCharacterEncoding("UTF-8");
-    response.getWriter().println(jsonComments);
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      PreparedQuery results = datastore.prepare(query);
+
+      List<Comment> comments = new ArrayList<>();
+      for (Entity entity : results.asIterable(FetchOptions.Builder.withLimit(requestLimit))) {
+        String author = (String) entity.getProperty("author");
+        String text = (String) entity.getProperty("text");
+
+        Translation translation = translate.translate(text,
+            Translate.TranslateOption.targetLanguage(language));
+        text = translation.getTranslatedText();
+        Comment comment = new Comment(author, text);
+        comments.add(comment);
+      }
+
+      Gson gson = new Gson();
+      String jsonComments = gson.toJson(comments);
+      response.setContentType("application/json; charset=UTF-8");
+      response.setCharacterEncoding("UTF-8");
+      response.getWriter().println(jsonComments);
+    }
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
