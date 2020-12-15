@@ -62,30 +62,33 @@ public class DataServlet extends HttpServlet {
         break;
       }
     }
-    if (langParamValid) {
-      Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
-
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-      PreparedQuery results = datastore.prepare(query);
-
-      List<Comment> comments = new ArrayList<>();
-      for (Entity entity : results.asIterable(FetchOptions.Builder.withLimit(requestLimit))) {
-        String author = (String) entity.getProperty("author");
-        String text = (String) entity.getProperty("text");
-
-        Translation translation = translate.translate(text,
-            Translate.TranslateOption.targetLanguage(language));
-        text = translation.getTranslatedText();
-        Comment comment = new Comment(author, text);
-        comments.add(comment);
-      }
-
-      Gson gson = new Gson();
-      String jsonComments = gson.toJson(comments);
-      response.setContentType("application/json; charset=UTF-8");
-      response.setCharacterEncoding("UTF-8");
-      response.getWriter().println(jsonComments);
+    if (!langParamValid) {
+      language = "en";
     }
+
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    List<Comment> comments = new ArrayList<>();
+    for (Entity entity : results.asIterable(FetchOptions.Builder.withLimit(requestLimit))) {
+      String author = (String) entity.getProperty("author");
+      String text = (String) entity.getProperty("text");
+
+      Translation translation = translate.translate(text,
+          Translate.TranslateOption.targetLanguage(language));
+      text = translation.getTranslatedText();
+      Comment comment = new Comment(author, text);
+      comments.add(comment);
+    }
+
+    Gson gson = new Gson();
+    String jsonComments = gson.toJson(comments);
+    response.setContentType("application/json; charset=UTF-8");
+    response.setCharacterEncoding("UTF-8");
+    response.getWriter().println(jsonComments);
+
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
