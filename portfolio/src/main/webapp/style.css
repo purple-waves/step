@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap');
+
 .comment {
     border: 3px solid #A87E53;
     border-radius: 10px;
@@ -10,7 +12,7 @@
 }
 
 #content {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
   margin-left: auto;
   margin-right: auto;
   width: 800px;
@@ -34,7 +36,7 @@ h1 {
 }
 
 h2 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .image-thumbnails {
