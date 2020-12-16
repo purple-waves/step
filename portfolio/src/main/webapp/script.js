@@ -88,6 +88,7 @@ function loadLanguageDropdown() {
                 createOptionElement(languages[i].name, languages[i].code)
             );
         }
+        dropdown.value = "en"; //select English as the default language
     })
 }
 
