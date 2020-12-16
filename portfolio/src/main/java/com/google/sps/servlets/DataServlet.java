@@ -28,6 +28,7 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.cloud.translate.Language;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
@@ -49,6 +50,22 @@ public class DataServlet extends HttpServlet {
     int requestLimit = Integer.parseInt(request.getParameter("request-limit"));
     String language = request.getParameter("language");
 
+    Translate translate = TranslateOptions.newBuilder().setProjectId("internplayground")
+        .setQuotaProjectId("internplayground").build().getService();
+
+    List<Language> languages = translate.listSupportedLanguages();
+    
+    Boolean langParamValid = false;
+    for (Language lang : languages) {
+      if (lang.getCode().equals(language)) {
+        langParamValid = true;
+        break;
+      }
+    }
+    if (!langParamValid) {
+      language = "en";
+    }
+
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -59,8 +76,6 @@ public class DataServlet extends HttpServlet {
       String author = (String) entity.getProperty("author");
       String text = (String) entity.getProperty("text");
 
-      Translate translate = TranslateOptions.newBuilder().setProjectId("internplayground")
-          .setQuotaProjectId("internplayground").build().getService();
       Translation translation = translate.translate(text,
           Translate.TranslateOption.targetLanguage(language));
       text = translation.getTranslatedText();
@@ -73,6 +88,7 @@ public class DataServlet extends HttpServlet {
     response.setContentType("application/json; charset=UTF-8");
     response.setCharacterEncoding("UTF-8");
     response.getWriter().println(jsonComments);
+
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
