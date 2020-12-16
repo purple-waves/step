@@ -104,10 +104,74 @@ function loadPage() {
     loadLanguageDropdown();
 }
 
+
+
 let map;
 function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: -35.28346, lng: 149.12807 },
-        zoom: 9,
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -35.28346, lng: 149.12807 },
+    zoom: 9,
+  });
+
+  const natureWalks = [
+    {
+      position: { lat: -35.2916, lng: 149.0898 },
+      map: map,
+      title: 'Weston Park'
+    },
+    {
+      position: { lat: -35.2789, lng: 149.1089 },
+      map: map,
+      title: 'Australian National Botanic Gardens'
+    },
+    {
+      position: { lat: -35.5313, lng: 149.0657 },
+      map: map,
+      title: 'Namadgi National Park'
+    },
+    {
+      position: { lat: -35.2985, lng: 149.1418 },
+      map: map,
+      title: 'Lake Burley Griffin: Bridge to Bridge'
+    },
+    {
+      position: { lat: -35.27000, lng: 149.15833 },
+      map: map,
+      title: 'Mount Ainslie Summit Trail'
+    },
+    {
+      position: { lat: -35.1421, lng: 149.0915 },
+      map: map,
+      title: 'One Tree Hill Summit'
+    },
+    {
+      position: { lat: -35.2650, lng: 149.0678 },
+      map: map,
+      title: 'Mount Painter Summit Walk'
+    },
+    {
+      position: { lat: -35.4442, lng: 148.8920 },
+      map: map,
+      title: 'Tidbinbilla Nature Reserve'
+    },
+    {
+      position: { lat: -35.2736, lng: 149.0975 },
+      map: map,
+      title: 'Black Mountain'
+    },
+    {
+      position: { lat: -35.39553306, lng: 149.0101326 },
+      map: map,
+      title: 'Murrumbidgee Discovery Track'
+    }
+  ]
+
+  // Create markers.
+  for (walk of natureWalks) {
+    const marker = new google.maps.Marker({
+      position: walk.position,
+      map: map,
     });
+  }
+
 }
