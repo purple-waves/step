@@ -32,6 +32,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/shoutbox")
 public class ShoutboxServlet extends HttpServlet {
 
+  private static final long serialVersionUID = 5165335052554911487L;
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;");
