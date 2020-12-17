@@ -105,8 +105,6 @@ function loadPage() {
     loadLanguageDropdown();
 }
 
-
-
 let map;
 function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
@@ -118,53 +116,53 @@ function initMap() {
         {
             position: { lat: -35.2916, lng: 149.0898 },
             map: map,
-            title: 'Weston Park'
+            title: 'Weston Park',
         },
         {
             position: { lat: -35.2789, lng: 149.1089 },
             map: map,
-            title: 'Australian National Botanic Gardens'
+            title: 'Australian National Botanic Gardens',
         },
         {
             position: { lat: -35.5313, lng: 149.0657 },
             map: map,
-            title: 'Namadgi National Park'
+            title: 'Namadgi National Park',
         },
         {
             position: { lat: -35.2985, lng: 149.1418 },
             map: map,
-            title: 'Lake Burley Griffin: Bridge to Bridge'
+            title: 'Lake Burley Griffin: Bridge to Bridge',
         },
         {
             position: { lat: -35.27000, lng: 149.15833 },
             map: map,
-            title: 'Mount Ainslie Summit Trail'
+            title: 'Mount Ainslie Summit Trail',
         },
         {
             position: { lat: -35.1421, lng: 149.0915 },
             map: map,
-            title: 'One Tree Hill Summit'
+            title: 'One Tree Hill Summit',
         },
         {
             position: { lat: -35.2650, lng: 149.0678 },
             map: map,
-            title: 'Mount Painter Summit Walk'
+            title: 'Mount Painter Summit Walk',
         },
         {
             position: { lat: -35.4442, lng: 148.8920 },
             map: map,
-            title: 'Tidbinbilla Nature Reserve'
+            title: 'Tidbinbilla Nature Reserve',
         },
         {
             position: { lat: -35.2736, lng: 149.0975 },
             map: map,
-            title: 'Black Mountain'
+            title: 'Black Mountain',
         },
         {
             position: { lat: -35.39553306, lng: 149.0101326 },
             map: map,
-            title: 'Murrumbidgee Discovery Track'
-        }
+            title: 'Murrumbidgee Discovery Track',
+        },
     ]
 
     // Create markers.
