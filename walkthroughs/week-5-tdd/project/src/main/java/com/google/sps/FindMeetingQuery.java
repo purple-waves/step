@@ -54,7 +54,10 @@ public final class FindMeetingQuery {
             endIndex ++;
         }
 
-
+        /*
+        Check if the end point reached the end of the availability array before it found a busy (false) time slot.
+        If so, the end point needs to be incremented so the final minute is included in the time range
+        **/
         if (endIndex == TimeRange.END_OF_DAY && availability[endIndex]) {
             endIndex ++;
         }
