@@ -37,7 +37,7 @@ public final class FindMeetingQuery {
 
     Collection<TimeRange> availableTimes = new LinkedList<TimeRange>();
 
-    int startIndex = 0;
+    int startIndex = TimeRange.START_OF_DAY;
 
     while (startIndex <= TimeRange.END_OF_DAY) {
         if (!availability[startIndex]) {
