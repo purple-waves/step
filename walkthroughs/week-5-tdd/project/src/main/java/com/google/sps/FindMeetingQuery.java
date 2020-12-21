@@ -14,10 +14,74 @@
 
 package com.google.sps;
 
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Collection;
 
 public final class FindMeetingQuery {
+
+  // has one slot for every minute of a day
+  // The minute is true if all attendees are available in that minute, false
+  // otherwise
+  private boolean[] availability = new boolean[TimeRange.END_OF_DAY + 1];
+
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+    Arrays.fill(availability,true);
+
+    for (Event event : events) {
+      if (isEventRelevant(event, request.getAttendees())) {
+        recordBusyTime(event.getWhen());
+      }
+    }
+
+    Collection<TimeRange> availableTimes = new LinkedList<TimeRange>();
+
+    int startIndex = TimeRange.START_OF_DAY;
+
+    while (startIndex <= TimeRange.END_OF_DAY) {
+        if (!availability[startIndex]) {
+            startIndex ++;
+            continue;
+        }
+        
+        int endIndex = startIndex;
+
+        while (endIndex <= TimeRange.END_OF_DAY) {
+            if (!availability[endIndex]) {
+                break;
+            }
+            endIndex ++;
+        }
+
+        if (endIndex - startIndex >= request.getDuration()) {
+            TimeRange availableTime = TimeRange.fromStartEnd(startIndex, endIndex, false);
+            availableTimes.add(availableTime);
+        }
+
+        startIndex  = endIndex;
+    }
+
+    return availableTimes;
   }
+
+  /*
+   * Determines if the event is relevant for at least one of the required
+   * attendees. It is relevant if the attendee is attending the event
+   **/
+  private Boolean isEventRelevant(Event event, Collection<String> requiredAttendees) {
+    for (String attendee : event.getAttendees()) {
+      if (requiredAttendees.contains(attendee)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private void recordBusyTime(TimeRange newTime) {
+    for (int i = newTime.start(); i < newTime.end(); i++) {
+      availability[i] = false;
+    }
+  }
+
 }
