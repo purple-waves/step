@@ -21,67 +21,91 @@ import java.util.Collection;
 
 public final class FindMeetingQuery {
 
-  // has one slot for every minute of a day
-  // The minute is true if all attendees are available in that minute, false
-  // otherwise
-  private boolean[] availability = new boolean[TimeRange.END_OF_DAY + 1];
+    public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+        // has one slot for every minute of a day
+        // The minute is true if all attendees are available in that minute, false
+        // otherwise
+        boolean[] availabilityWithOptional = new boolean[TimeRange.END_OF_DAY + 1];
+        boolean[] availabilityMandatoryOnly = new boolean[TimeRange.END_OF_DAY + 1];
 
-  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    Arrays.fill(availability,true);
+        Arrays.fill(availabilityWithOptional, true);
+        Arrays.fill(availabilityMandatoryOnly, true);
 
-    for (Event event : events) {
-      if (isEventRelevant(event, request.getAttendees())) {
-        recordBusyTime(event.getWhen());
-      }
-    }
+        for (Event event : events) {
+            boolean isRelevantMandatoryAttendees = isEventRelevant(event, request.getAttendees());
+            boolean isRelevantOptionalAttendees = isEventRelevant(event, request.getOptionalAttendees());
 
-    Collection<TimeRange> availableTimes = new LinkedList<TimeRange>();
-
-    int startIndex = TimeRange.START_OF_DAY;
-
-    while (startIndex <= TimeRange.END_OF_DAY) {
-        if (!availability[startIndex]) {
-            startIndex ++;
-            continue;
-        }
-        
-        int endIndex = startIndex;
-
-        while (endIndex <= TimeRange.END_OF_DAY) {
-            if (!availability[endIndex]) {
-                break;
+            if (isRelevantMandatoryAttendees) {
+                recordBusyTime(event.getWhen(), availabilityMandatoryOnly);
+                recordBusyTime(event.getWhen(), availabilityWithOptional);
             }
-            endIndex ++;
+
+            if (isRelevantOptionalAttendees) {
+                recordBusyTime(event.getWhen(), availabilityWithOptional);
+            }
         }
 
-        if (endIndex - startIndex >= request.getDuration()) {
-            TimeRange availableTime = TimeRange.fromStartEnd(startIndex, endIndex, false);
-            availableTimes.add(availableTime);
+        Collection<TimeRange> availableTimesWithOptionalAttendees = getAvailableTimes(availabilityWithOptional,
+                request);
+
+        if (availableTimesWithOptionalAttendees.size() > 0) {
+            return availableTimesWithOptionalAttendees;
         }
 
-        startIndex  = endIndex;
+        Collection<TimeRange> availableTimesMandatoryOnly = getAvailableTimes(availabilityMandatoryOnly, request);
+
+        return availableTimesMandatoryOnly;
+
     }
 
-    return availableTimes;
-  }
+    private Collection<TimeRange> getAvailableTimes(boolean[] availability, MeetingRequest request) {
+        Collection<TimeRange> availableTimes = new LinkedList<TimeRange>();
 
-  /*
-   * Determines if the event is relevant for at least one of the required
-   * attendees. It is relevant if the attendee is attending the event
-   **/
-  private Boolean isEventRelevant(Event event, Collection<String> requiredAttendees) {
-    for (String attendee : event.getAttendees()) {
-      if (requiredAttendees.contains(attendee)) {
-        return true;
-      }
-    }
-    return false;
-  }
+        int startIndex = TimeRange.START_OF_DAY;
 
-  private void recordBusyTime(TimeRange newTime) {
-    for (int i = newTime.start(); i < newTime.end(); i++) {
-      availability[i] = false;
+        while (startIndex <= TimeRange.END_OF_DAY) {
+            if (!availability[startIndex]) {
+                startIndex++;
+                continue;
+            }
+
+            int endIndex = startIndex;
+
+            while (endIndex <= TimeRange.END_OF_DAY) {
+                if (!availability[endIndex]) {
+                    break;
+                }
+                endIndex++;
+            }
+
+            if (endIndex - startIndex >= request.getDuration()) {
+                TimeRange availableTime = TimeRange.fromStartEnd(startIndex, endIndex, false);
+                availableTimes.add(availableTime);
+            }
+
+            startIndex = endIndex;
+        }
+
+        return availableTimes;
     }
-  }
+
+    /*
+     * Determines if the event is relevant for at least one of the attendees. It is
+     * relevant if the attendee is attending the event
+     **/
+    private Boolean isEventRelevant(Event event, Collection<String> requiredAttendees) {
+        for (String attendee : event.getAttendees()) {
+            if (requiredAttendees.contains(attendee)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void recordBusyTime(TimeRange newTime, boolean[] availability) {
+        for (int i = newTime.start(); i < newTime.end(); i++) {
+            availability[i] = false;
+        }
+    }
 
 }
