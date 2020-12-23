@@ -37,12 +37,12 @@
       <br>
       <h2>Add comment below:</h2>
       <form action="/data" method="POST" id="new-comment-form" autocomplete="off">
-        <p>Comment contents:</p>
         <label for="comment-author">Your name: </label>
         <input type="text" name="comment-author">
         <br>
         <label for="comment-text">Write your comment here:</label>
-        <input type="text" name="comment-text">
+        <br>
+        <textarea name="comment-text" id="comment-text"></textarea>
         <br>
         <input type="submit">
       </form>

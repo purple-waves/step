@@ -4,15 +4,20 @@ html, body {
     height: 100%;
 }
 
+button {
+    margin: 5px;
+}
+
 .comment {
     border: 3px solid #A87E53;
-    border-radius: 10px;
     margin: 0 0 5px 0;
     padding: 5px;
 }
 
 #new-comment-form {
     background-color: #EFE2C6;
+    border: 3px solid #A87E53;
+    padding: 10px;
 }
 
 #content {
@@ -62,6 +67,12 @@ h2 {
 
 #map {
     height: 50%;
+}
+
+#language-dropdown {
+    float: right;
+    padding: 2px;
+    margin: 5px 0 0 0;
 }
 
 #quote-container {
