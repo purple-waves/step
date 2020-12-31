@@ -28,6 +28,10 @@ button {
   width: 800px;
 }
 
+#delete-comments-button {
+    display: none;
+}
+
 header {
   background: url("images/sunset_header.jpg");
   height: 185px;
