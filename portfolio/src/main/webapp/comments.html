@@ -21,14 +21,7 @@
         <li><a href="nature-walks.html">Canberra Nature Walks</a></li>
       </ul>
     </div>
-    <select onchange="getComments()" name="language-dropdown" id="language-dropdown">
-      <option value="zh">Chinese</option>
-      <option value="en" selected>English</option>
-      <option value="hi">Hindi</option>
-      <option value="es">Spanish</option>
-      <option value="ar">Arabic</option>
-      <option value="la">Latin</option>
-    </select>
+    <select onchange="getComments()" name="language-dropdown" id="language-dropdown"></select>
     <br>
     <div id="comments-section">
       <h2>Comments:</h2>
@@ -44,12 +37,12 @@
       <br>
       <h2>Add comment below:</h2>
       <form action="/data" method="POST" id="new-comment-form" autocomplete="off">
-        <p>Comment contents:</p>
         <label for="comment-author">Your name: </label>
         <input type="text" name="comment-author">
         <br>
         <label for="comment-text">Write your comment here:</label>
-        <input type="text" name="comment-text">
+        <br>
+        <textarea name="comment-text" id="comment-text"></textarea>
         <br>
         <input type="submit">
       </form>
